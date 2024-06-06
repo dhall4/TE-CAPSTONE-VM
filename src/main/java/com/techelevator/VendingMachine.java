@@ -38,8 +38,16 @@ public class VendingMachine {
         }
 
     }
-    public void feedMoney() {
-        //balance += amount;
+    public void feedMoney(int amount) {
+        balance += amount;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void purchaseProduct(String slot){
+
     }
 
 

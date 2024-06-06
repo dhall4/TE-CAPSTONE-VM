@@ -4,6 +4,7 @@ import com.techelevator.view.VendingMenu;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Scanner;
 
 
 public class VendingMachineCLI {
@@ -35,6 +36,7 @@ public class VendingMachineCLI {
 
 		while (running) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
+			System.out.println("Current money provided: " + vendingMachine.getBalance());
 			//String MAIN_MENU_OPTION_PURCHASE = "Purchase"
 			// A switch statement could also be used here.  Your choice.
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
@@ -57,11 +59,14 @@ public class VendingMachineCLI {
 		while (isPurchasing) {
 			String choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 			if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
-				//ask for money
-				//update balance
-
+				System.out.println("Insert bills please! (Type in whole numbers how many dollars to add):");
+				Scanner userInput = new Scanner(System.in);
+				String stringAmount = userInput.nextLine();
+				int amount = Integer.parseInt(stringAmount);
+				vendingMachine.feedMoney(amount);
+				System.out.println("Current money provided: " + vendingMachine.getBalance());
 			} else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
-				
+
 
 				//display products
 				//ask for choice (does it exist?)
