@@ -8,14 +8,14 @@ import java.util.*;
 public class VendingMachine {
 
     public void displayItems(){
-        for (Product item : productList) {
+        for (Product item : inventory.values()) {
             // "%s %-20s %4.2f %s"
             System.out.println(item.getSlot() + item.getName() + item.getPrice() + item.getQuantity());
         }
 
     }
-    public Map<String, Product> inventory = new HashMap<>();
-    public List<Product> productList = new ArrayList<>();
+    public Map<String, Product> inventory = new LinkedHashMap<>();
+//    public List<Product> productList = new ArrayList<>();
     public void loadInventory(){
         File inputFile = new File("vendingmachine.csv");
         try (Scanner inputScanner = new Scanner(inputFile)){
@@ -27,9 +27,9 @@ public class VendingMachine {
                 Double price = Double.parseDouble(elements[2]);
                 String type = elements[3];
 
-                Product product = new Product(slot, name, price, type);
+//                Product product = new Product(slot, name, price, type);
                 inventory.put(slot, new Product(slot, name, price, type));
-                productList.add(product);
+//                productList.add(product);
             }
         } catch (IOException e){
             System.err.println("Inventory file not found: " + e.getMessage());
