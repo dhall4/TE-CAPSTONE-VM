@@ -57,10 +57,24 @@ public class VendingMachineCLI {
 		while (isPurchasing) {
 			String choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 			if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
+				//ask for money
+				//update balance
 
 			} else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+				
+
+				//display products
+				//ask for choice (does it exist?)
+				//^ dispense print name, cost, balance remaining
+				//^YUMMY message
+				//update balance
+				//^update quantity (is it sold out?)
+				//return to purchase menu
+
 
 			} else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
+				//initiate checkout
+				//^ issue change
 				isPurchasing = false;
 			}
 		}
