@@ -3,9 +3,11 @@ package com.techelevator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.*;
 
 public class VendingMachine {
+    private double balance = 0.00; // may need to be bigD
 
     public void displayItems(){
         for (Product item : inventory.values()) {
@@ -36,8 +38,9 @@ public class VendingMachine {
         }
 
     }
-
-
+    public void feedMoney() {
+        //balance += amount;
+    }
 
 
 
