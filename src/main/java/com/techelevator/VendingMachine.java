@@ -9,13 +9,13 @@ import java.util.Scanner;
 public class VendingMachine {
 
     public void displayItems(){
+        for (Product item : inventory.values() ) {
+            // "%s %-20s %4.2f %s"
+            System.out.println(item.getSlot() + item.getName() + item.getPrice() + item.getQuantity());
+        }
 
     }
-
-
     public Map<String, Product> inventory = new HashMap<>();
-
-
     public void loadInventory() throws IOException {
         File inputFile = new File("vendingmachine.csv");
         Scanner inputScanner = new Scanner(inputFile);
