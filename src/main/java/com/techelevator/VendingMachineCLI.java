@@ -2,6 +2,7 @@ package com.techelevator;
 
 import com.techelevator.view.VendingMenu;
 
+import java.io.IOException;
 
 
 public class VendingMachineCLI {
@@ -26,8 +27,10 @@ public class VendingMachineCLI {
 		this.vendingMachine = vendingMachine;
 	}
 
-	public void run() {
+	public void run(){
 		boolean running = true;
+		vendingMachine.loadInventory();
+
 		while (running) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
