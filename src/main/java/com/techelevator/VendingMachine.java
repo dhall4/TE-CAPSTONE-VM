@@ -54,15 +54,24 @@ public class VendingMachine {
         Product product = inventory.get(expectedSlot);
         if (inventory.containsKey(expectedSlot)) {
             if (product.getQuantity() == 0) {
-                System.out.println("Item is out of stock please select a different option.");
+                System.out.println();
+                System.out.println("x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x");
+                System.out.println();
+                System.out.println("Item is OUT OF STOCK. Please select a different option.");
+                System.out.println();
+                System.out.println("x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x");
+                System.out.println();
+                displayItems();
+                System.out.println();
             } else if (balance.compareTo(product.getPrice()) < 0) {
                     System.out.println("Insufficient funds! Please feed more money or select a different option.");
             } else {
 
                 balance = balance.subtract(product.getPrice());
                 product.setQuantity(product.getQuantity() -1);
-                System.out.format("Thank you for your purchase of: %s for $%f!",product.getName(),product.getPrice());
-                // yummy message
+                System.out.println();
+                getMessage(product);
+                System.out.format("Thank you for your purchase of: %s for $%.2f!",product.getName(),product.getPrice());
                 System.out.println("\n\nBalance remaining: $" + getBalance());
                 //return to purchase menu
 
@@ -91,6 +100,15 @@ public class VendingMachine {
         System.out.println("Here is your change: " + quarterCount + " quarters, " + dimeCount + " dimes, " + nickleCount + " nickles.");
         //balance = 0 giving change
         //returns to main menu
+    }
+
+    public void getMessage(Product product){
+        String type = product.getType();
+
+        if(type.equals("Chip") || type.equals("chip")){
+            System.out.println("Crunch Crunch, It's Yummy!");
+        }
+
     }
 }
 
