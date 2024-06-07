@@ -4,6 +4,7 @@ import com.techelevator.view.VendingMenu;
 
 import java.awt.*;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 
@@ -36,7 +37,7 @@ public class VendingMachineCLI {
 
 		while (running) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
-			System.out.println("Current money provided: " + vendingMachine.getBalance());
+			System.out.println("Current money provided: $" + vendingMachine.getBalance());
 			//String MAIN_MENU_OPTION_PURCHASE = "Purchase"
 			// A switch statement could also be used here.  Your choice.
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
@@ -63,9 +64,9 @@ public class VendingMachineCLI {
 				System.out.println("Insert bills please! (Type in whole numbers how many dollars to add):");
 				//Scanner userInput = new Scanner(System.in);
 				String stringAmount = userInput.nextLine();
-				int amount = Integer.parseInt(stringAmount);
+				BigDecimal amount = BigDecimal.valueOf(Integer.parseInt(stringAmount));
 				vendingMachine.feedMoney(amount);
-				System.out.println("Current money provided: " + vendingMachine.getBalance());
+				System.out.println("Current money provided: $" + vendingMachine.getBalance());
 			} else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
 				System.out.println("Please select an item: ");
 				String expectedSlot = userInput.nextLine();
@@ -81,6 +82,7 @@ public class VendingMachineCLI {
 
 
 			} else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
+				vendingMachine.finishTransaction();
 				//initiate checkout
 				//^ issue change
 				isPurchasing = false;

@@ -7,12 +7,16 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class VendingMachine {
-    private double balance = 0.00; // may need to be bigD
+    private BigDecimal balance = BigDecimal.valueOf(0.00);
+    // may need to be bigD
 
     public void displayItems(){
+        System.out.format("\n%-5s %-20s %s  %-5s", "Slot", "Name", "Price", "Quantity");
         for (Product item : inventory.values()) {
             // "%s %-20s %4.2f %s"
-            System.out.println(item.getSlot() + item.getName() + item.getPrice() + item.getQuantity());
+            //System.out.println(  item.getSlot() + item.getName() + item.getPrice() + item.getQuantity());
+
+            System.out.format("\n%-5s %-20s $%4.2f   %-5s", item.getSlot(), item.getName(), item.getPrice(), item.getQuantity());
         }
 
     }
@@ -38,11 +42,11 @@ public class VendingMachine {
         }
 
     }
-    public void feedMoney(int amount) {
-        balance += amount;
+    public void feedMoney(BigDecimal amount) {
+        balance = balance.subtract(amount);
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
@@ -57,9 +61,9 @@ public class VendingMachine {
 
                 balance -= product.getPrice();
                 product.setQuantity(product.getQuantity() -1);
+                System.out.format("Thank you for your purchase of: %s for $%f!",product.getName(),product.getPrice());
                 // yummy message
-                System.out.println(product.getSlot() + product.getName() + product.getPrice() + product.getQuantity());
-                System.out.println("Balance remaining :" + getBalance());
+                System.out.println("\n\nBalance remaining: $" + getBalance());
                 //return to purchase menu
 
             }
