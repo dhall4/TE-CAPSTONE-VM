@@ -46,10 +46,47 @@ public class VendingMachine {
         return balance;
     }
 
-    public void purchaseProduct(String slot){
+    public void purchaseProduct(String expectedSlot){
+        Product product = inventory.get(expectedSlot);
+        if (inventory.containsKey(expectedSlot)) {
+            if (product.getQuantity() == 0) {
+                System.out.println("Item is out of stock please select a different option.");
+            } else if (balance < product.getPrice() ) {
+                    System.out.println("Insufficient funds! Please feed more money or select a different option.");
+            } else {
 
+                balance -= product.getPrice();
+                product.setQuantity(product.getQuantity() -1);
+                // yummy message
+                System.out.println(product.getSlot() + product.getName() + product.getPrice() + product.getQuantity());
+                System.out.println("Balance remaining :" + getBalance());
+                //return to purchase menu
+
+            }
+        } else {
+            System.out.println("Please check your option.");
+        }
     }
 
-
-
+    public void finishTransaction() {
+        int quarterCount = 0;
+        int dimeCount = 0;
+        int nickleCount = 0;
+        while (getBalance() >= 0.25) {
+            balance -= 0.25;
+            quarterCount++;
+        }
+        while (getBalance() >= 0.10 ) {
+            balance -= 0.10;
+            dimeCount++;
+        }
+        while (getBalance() > 0 ) {
+            balance -= 0.05;
+            nickleCount++;
+        }
+        System.out.println("Here is your change: " + quarterCount + " quarters, " + dimeCount + " dimes, " + nickleCount + " nickles.");
+        //balance = 0 giving change
+        //returns to main menu
+    }
 }
+
