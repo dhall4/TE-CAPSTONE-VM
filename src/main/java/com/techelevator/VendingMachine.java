@@ -30,7 +30,7 @@ public class VendingMachine {
                 String[] elements = line.split("\\|");
                 String slot = elements[0];
                 String name = elements[1];
-                Double price = Double.parseDouble(elements[2]);
+                BigDecimal price = BigDecimal.valueOf(Double.parseDouble(elements[2]));
                 String type = elements[3];
 
 //                Product product = new Product(slot, name, price, type);
@@ -43,7 +43,7 @@ public class VendingMachine {
 
     }
     public void feedMoney(BigDecimal amount) {
-        balance = balance.subtract(amount);
+        balance = balance.add(amount);
     }
 
     public BigDecimal getBalance() {
@@ -55,11 +55,11 @@ public class VendingMachine {
         if (inventory.containsKey(expectedSlot)) {
             if (product.getQuantity() == 0) {
                 System.out.println("Item is out of stock please select a different option.");
-            } else if (balance < product.getPrice() ) {
+            } else if (balance.compareTo(product.getPrice()) < 0) {
                     System.out.println("Insufficient funds! Please feed more money or select a different option.");
             } else {
 
-                balance -= product.getPrice();
+                balance = balance.subtract(product.getPrice());
                 product.setQuantity(product.getQuantity() -1);
                 System.out.format("Thank you for your purchase of: %s for $%f!",product.getName(),product.getPrice());
                 // yummy message
@@ -76,16 +76,16 @@ public class VendingMachine {
         int quarterCount = 0;
         int dimeCount = 0;
         int nickleCount = 0;
-        while (getBalance() >= 0.25) {
-            balance -= 0.25;
+        while (getBalance().compareTo(BigDecimal.valueOf(0.25)) >= 0) {
+            balance = balance.subtract(BigDecimal.valueOf(0.25));
             quarterCount++;
         }
-        while (getBalance() >= 0.10 ) {
-            balance -= 0.10;
+        while (getBalance().compareTo(BigDecimal.valueOf(0.10)) >= 0) {
+            balance = balance.subtract(BigDecimal.valueOf(0.10));
             dimeCount++;
         }
-        while (getBalance() > 0 ) {
-            balance -= 0.05;
+        while (getBalance().compareTo(BigDecimal.valueOf(0.05)) >= 0) {
+            balance = balance.subtract(BigDecimal.valueOf(0.05));
             nickleCount++;
         }
         System.out.println("Here is your change: " + quarterCount + " quarters, " + dimeCount + " dimes, " + nickleCount + " nickles.");
