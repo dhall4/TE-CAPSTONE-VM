@@ -47,7 +47,12 @@ public class VendingMachineCLI {
 				System.out.println();
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				purchaseMenu();
+			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
+				running = false;
+			} else if (choice.equals(MAIN_MENU_SECRET_OPTION)) {
+				vendingMachine.salesReport();
 			}
+
 		}
 	}
 

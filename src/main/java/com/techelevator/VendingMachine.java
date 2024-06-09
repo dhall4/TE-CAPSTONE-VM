@@ -229,5 +229,43 @@ public class VendingMachine {
 
     }
 
+    public  void salesReport() {
+
+        String salesMessage = "";
+
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+
+        String timeStamp = String.format("%tm_%td_%tY_%tI_%tM_%tS_%Tp", date, date, date, time, time, time, time);
+        File salesReport = new File(String.format("SalesReport_%s.txt", timeStamp));
+        PrintWriter writer = null;
+        try {
+            if (salesReport.exists()) {
+                writer = new PrintWriter(new FileWriter(salesReport, true));
+            }
+            else {
+                writer = new PrintWriter(salesReport);
+            }
+
+            BigDecimal totalSales = new BigDecimal(0);
+            for (Product product : inventory.values()) {
+                int quantitySold = 5 - product.getQuantity();
+                salesMessage = String.format("\n%s|%d", product.getName(), quantitySold );
+                BigDecimal sold = new BigDecimal(0);
+                sold = BigDecimal.valueOf(quantitySold);
+
+                totalSales = totalSales.add(sold.multiply(product.getPrice()));
+                writer.append(salesMessage);
+            }
+            writer.append(String.format("\n\n**TOTAL SALES** $%.2f", totalSales));
+
+
+            writer.flush();
+            writer.close();
+        }catch (IOException e) {
+            System.err.println("Error creating sales report: " + e.getMessage());
+        }
+    }
+
 }
 
